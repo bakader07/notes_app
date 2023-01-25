@@ -60,11 +60,27 @@ class NotesView extends StatefulWidget {
   State<NotesView> createState() => _NotesViewState();
 }
 
+enum MenuAction { logout }
+
 class _NotesViewState extends State<NotesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Your Notes')),
+      appBar: AppBar(
+        title: const Text('Your Notes'),
+        actions: [
+          PopupMenuButton<MenuAction>(
+              onSelected: (value) {
+                print(value);
+              },
+              itemBuilder: (context) => const [
+                    PopupMenuItem<MenuAction>(
+                      value: MenuAction.logout,
+                      child: Text('Log out'),
+                    )
+                  ]),
+        ],
+      ),
       body: const Text('Hello World'),
     );
   }
