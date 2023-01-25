@@ -61,8 +61,6 @@ class NotesView extends StatefulWidget {
   State<NotesView> createState() => _NotesViewState();
 }
 
-enum MenuAction { logout }
-
 class _NotesViewState extends State<NotesView> {
   @override
   Widget build(BuildContext context) {
@@ -99,6 +97,8 @@ class _NotesViewState extends State<NotesView> {
     );
   }
 }
+
+enum MenuAction { logout }
 
 Future<bool> showLogoutDialog(BuildContext context) {
   return showDialog(
