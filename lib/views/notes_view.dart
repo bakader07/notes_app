@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
 
 import '../constants/routes.dart';
+import '../enums/menu_action.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -47,8 +48,6 @@ class _NotesViewState extends State<NotesView> {
     );
   }
 }
-
-enum MenuAction { logout }
 
 Future<bool> showLogoutDialog(BuildContext context) {
   return showDialog(
