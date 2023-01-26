@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:developer' as devtools show log;
 
 import '../constants/routes.dart';
+import '../services/auth/auth_service.dart';
+import '../services/auth/auth_exceptions.dart';
 import '../utilities/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
@@ -59,26 +59,20 @@ class _RegisterViewState extends State<RegisterView> {
               final password = _passwordController.text;
 
               try {
-                final userCredential =
-                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                await AuthService.firebase().createUser(
                   email: email,
                   password: password,
                 );
-                devtools.log(userCredential.toString());
-                await userCredential.user?.sendEmailVerification();
+                await AuthService.firebase().sendEmailVerification();
                 Navigator.of(context).pushNamed(verifyEmailRoute);
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'weak-password') {
-                  await showErrorDialog(context, 'Weak password');
-                } else if (e.code == 'invalid-email') {
-                  await showErrorDialog(context, 'Invalid email');
-                } else if (e.code == 'email-already-in-use') {
-                  await showErrorDialog(context, 'Email is already in use');
-                } else {
-                  await showErrorDialog(context, 'Error: ${e.code}');
-                }
-              } catch (e) {
-                await showErrorDialog(context, e.toString());
+              } on WeakPasswordAuthException {
+                await showErrorDialog(context, 'Weak password');
+              } on InvalidEmailAuthException {
+                await showErrorDialog(context, 'Invalid email');
+              } on EmailInUseAuthException {
+                await showErrorDialog(context, 'Email is already in use');
+              } on AuthException {
+                await showErrorDialog(context, 'Failed to register');
               }
             },
             child: const Text('Register'),
