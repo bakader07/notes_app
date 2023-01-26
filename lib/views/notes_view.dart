@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
 
-import 'package:test_app/constants/routes.dart';
+import '../constants/routes.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
