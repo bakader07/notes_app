@@ -23,4 +23,7 @@ class DatabaseUser {
 
   @override
   bool operator ==(covariant DatabaseUser other) => id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
