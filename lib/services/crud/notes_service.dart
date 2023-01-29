@@ -10,6 +10,14 @@ class DatabaseAlreadyOpenException implements Exception {}
 
 class DatabaseIsNotOpenException implements Exception {}
 
+class UserDoesNotExistException implements Exception {}
+
+class UserAlreadyExistsException implements Exception {}
+
+class CouldNotCreateUserException implements Exception {}
+
+class CouldNotDeleteUserException implements Exception {}
+
 class NotesService {
   Database? _db;
 
@@ -46,6 +54,58 @@ class NotesService {
       throw DatabaseIsNotOpenException();
     } else {
       return db;
+    }
+  }
+
+  Future<DatabaseUser> createUser({required String email}) async {
+    final db = _getDatabaseOrThrow();
+    // Checking if user already exists
+    final results = await db.query(
+      usersTable,
+      limit: 1,
+      where: 'email = ?',
+      whereArgs: [email.toLowerCase()],
+    );
+    if (results.isNotEmpty) {
+      throw UserAlreadyExistsException();
+    }
+    // Creating user
+    final createdUserId = await db.insert(
+      usersTable,
+      {emailColumn: email.toLowerCase()},
+    );
+    if (createdUserId == 0) {
+      throw CouldNotCreateUserException();
+    }
+
+    return DatabaseUser(id: createdUserId, email: email);
+  }
+
+  Future<DatabaseUser> getUser({required String email}) async {
+    final db = _getDatabaseOrThrow();
+    // Checking if user already exists
+    final results = await db.query(
+      usersTable,
+      limit: 1,
+      where: 'email = ?',
+      whereArgs: [email.toLowerCase()],
+    );
+    if (results.isEmpty) {
+      throw UserDoesNotExistException();
+    } else {
+      return DatabaseUser.fromRow(results.first);
+    }
+  }
+
+  Future<void> deleteUser({required String email}) async {
+    final db = _getDatabaseOrThrow();
+    final deleteCount = await db.delete(
+      usersTable,
+      where: 'email = ?',
+      whereArgs: [email.toLowerCase()],
+    );
+    if (deleteCount != 1) {
+      throw CouldNotDeleteUserException();
     }
   }
 }
