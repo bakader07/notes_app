@@ -328,7 +328,7 @@ const isSycedWithCloudColumn = 'is_syced_with_cloud';
 const createUsersTable = '''CREATE TABLE IF NOT EXISTS "$usersTable" (
   "$idColumn" INTEGER NOT NULL,
   "$emailColumn" TEXT NOT NULL UNIQUE,
-  PRIMARY KEY ("$idColumn", AUTOINCREMENT)
+  PRIMARY KEY ("$idColumn" AUTOINCREMENT)
 );''';
 
 const createNotesTable = '''CREATE TABLE IF NOT EXISTS "$notesTable" (
@@ -336,6 +336,6 @@ const createNotesTable = '''CREATE TABLE IF NOT EXISTS "$notesTable" (
   "$userIdColumn" INTEGER NOT NULL UNIQUE,
   "$textColumn" TEXT,
   "$isSycedWithCloudColumn" INTEGER NOT NULL UNIQUE DEFAULT 0,
-  FOREIGN KEY ("$userIdColumn") REFRENCES "$usersTable"("$idColumn"),
-  PRIMARY KEY ("$idColumn", AUTOINCREMENT)
+  FOREIGN KEY ("$userIdColumn") REFERENCES "$usersTable"("$idColumn"),
+  PRIMARY KEY ("$idColumn" AUTOINCREMENT)
 );''';
