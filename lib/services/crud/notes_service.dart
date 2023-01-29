@@ -72,7 +72,7 @@ class NotesService {
     final results = await db.query(
       usersTable,
       limit: 1,
-      where: 'email = ?',
+      where: '$emailColumn = ?',
       whereArgs: [email.toLowerCase()],
     );
     if (results.isNotEmpty) {
@@ -96,7 +96,7 @@ class NotesService {
     final results = await db.query(
       usersTable,
       limit: 1,
-      where: 'email = ?',
+      where: '$emailColumn = ?',
       whereArgs: [email.toLowerCase()],
     );
     if (results.isEmpty) {
@@ -110,7 +110,7 @@ class NotesService {
     final db = _getDatabaseOrThrow();
     final deleteCount = await db.delete(
       usersTable,
-      where: 'email = ?',
+      where: '$emailColumn = ?',
       whereArgs: [email.toLowerCase()],
     );
     if (deleteCount != 1) {
