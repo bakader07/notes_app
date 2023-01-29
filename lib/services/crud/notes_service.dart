@@ -3,29 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 
-class UnableToGetDocumentDirectoryException implements Exception {}
-
-class DatabaseAlreadyOpenException implements Exception {}
-
-class DatabaseIsNotOpenException implements Exception {}
-
-// Users Exceptions
-class CouldNotFindUserException implements Exception {}
-
-class UserAlreadyExistsException implements Exception {}
-
-class CouldNotCreateUserException implements Exception {}
-
-class CouldNotDeleteUserException implements Exception {}
-
-// Notes Exceptions
-class CouldNotFindNoteException implements Exception {}
-
-class CouldNotCreateNoteException implements Exception {}
-
-class CouldNotDeleteNoteException implements Exception {}
-
-class CouldNotUpdateNoteException implements Exception {}
+import './crud_exceptions.dart';
 
 class NotesService {
   Database? _db;
