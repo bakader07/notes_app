@@ -39,6 +39,15 @@ class NotesService {
     await db.close();
     _db = null;
   }
+
+  Database _getDatabaseOrThrow() {
+    final db = _db;
+    if (db == null) {
+      throw DatabaseIsNotOpenException();
+    } else {
+      return db;
+    }
+  }
 }
 
 @immutable
