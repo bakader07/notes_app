@@ -340,7 +340,7 @@ const createNotesTable = '''CREATE TABLE IF NOT EXISTS "$notesTable" (
   "$idColumn" INTEGER NOT NULL,
   "$userIdColumn" INTEGER NOT NULL,
   "$textColumn" TEXT,
-  "$isSycedWithCloudColumn" INTEGER NOT NULL UNIQUE DEFAULT 0,
+  "$isSycedWithCloudColumn" INTEGER NOT NULL DEFAULT 0,
   FOREIGN KEY ("$userIdColumn") REFERENCES "$usersTable"("$idColumn"),
   PRIMARY KEY ("$idColumn" AUTOINCREMENT)
 );''';
