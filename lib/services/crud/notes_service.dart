@@ -338,7 +338,7 @@ const createUsersTable = '''CREATE TABLE IF NOT EXISTS "$usersTable" (
 
 const createNotesTable = '''CREATE TABLE IF NOT EXISTS "$notesTable" (
   "$idColumn" INTEGER NOT NULL,
-  "$userIdColumn" INTEGER NOT NULL UNIQUE,
+  "$userIdColumn" INTEGER NOT NULL,
   "$textColumn" TEXT,
   "$isSycedWithCloudColumn" INTEGER NOT NULL UNIQUE DEFAULT 0,
   FOREIGN KEY ("$userIdColumn") REFERENCES "$usersTable"("$idColumn"),
