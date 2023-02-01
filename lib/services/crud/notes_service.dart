@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:notes_app/extensions/list/filter.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 
 import './crud_exceptions.dart';
+import '../../extensions/list/filter.dart';
 
 class NotesService {
   Database? _db;
