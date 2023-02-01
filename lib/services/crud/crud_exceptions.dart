@@ -4,6 +4,8 @@ class DatabaseAlreadyOpenException implements Exception {}
 
 class DatabaseIsNotOpenException implements Exception {}
 
+class UserMustBeSetBeforeReadingNoteException implements Exception {}
+
 // Users Exceptions
 class CouldNotFindUserException implements Exception {}
 
