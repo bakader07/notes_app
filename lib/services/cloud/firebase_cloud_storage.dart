@@ -14,11 +14,21 @@ class FirebaseCloudStorage {
   // Constructor
   FirebaseCloudStorage._instance();
 
-  void createNote({required String userId}) async {
-    await notes.add({
-      userIdField: userId,
-      textField: '',
-    });
+  Future<CloudNote> createNote({required String userId}) async {
+    try {
+      final document = await notes.add({
+        userIdField: userId,
+        textField: '',
+      });
+      final noteSnapshot = await document.get();
+      return CloudNote(
+        id: noteSnapshot.id,
+        userId: userId,
+        text: '',
+      );
+    } catch (_) {
+      throw CouldNotCreateNoteException();
+    }
   }
 
   Stream<Iterable<CloudNote>> allNotes({required String userId}) =>
