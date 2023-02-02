@@ -32,11 +32,9 @@ class FirebaseCloudStorage {
     try {
       final notesQuerySnapshot =
           await notes.where(userIdField, isEqualTo: userId).get();
-      final results = notesQuerySnapshot.docs.map((doc) => CloudNote(
-            id: doc.id,
-            userId: doc.data()[userIdField] as String,
-            text: doc.data()[textField] as String,
-          ));
+      final results = notesQuerySnapshot.docs.map(
+        (doc) => CloudNote.fromSnapshot(doc),
+      );
       return results;
     } catch (_) {
       throw CouldNotGetAllNotesException();
