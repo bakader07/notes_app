@@ -7,6 +7,7 @@ import '../services/auth/bloc/auth_events.dart';
 import '../services/auth/bloc/auth_state.dart';
 import '../services/auth/bloc/auth_bloc.dart';
 import '../utilities/dialogs/error_dialog.dart';
+import '../utilities/dialogs/loading_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -18,6 +19,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
+  CloseDialog? _closeDialogHnadle;
 
   @override
   void initState() {
@@ -35,61 +37,75 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
-      body: Column(
-        children: [
-          TextField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: const InputDecoration(
-                hintText: 'Please enter your email address'),
-          ),
-          TextField(
-            controller: _passwordController,
-            obscureText: true,
-            autocorrect: false,
-            enableSuggestions: false,
-            decoration: const InputDecoration(
-              hintText: 'Please enter your password',
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) async {
+        if (state is AuthStateLoggedOut) {
+          final closeDialog = _closeDialogHnadle;
+          if (!state.isLoading && closeDialog != null) {
+            closeDialog();
+            _closeDialogHnadle = null;
+          } else if (state.isLoading && closeDialog == null) {
+            _closeDialogHnadle = showLoadingsDialog(
+              context: context,
+              text: 'Loading...',
+            );
+          }
+
+          if (state.exception is InvalidEmailAuthException) {
+            await showErrorDialog(context, 'Invalid email!');
+          } else if (state.exception is UserNotFoundAuthException) {
+            await showErrorDialog(context, 'User not found!');
+          } else if (state.exception is WrongPasswordAuthException) {
+            await showErrorDialog(context, 'Wrong credentials!');
+          } else if (state.exception is AuthException) {
+            await showErrorDialog(context, 'Authentification error!');
+          }
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Login')),
+        body: Column(
+          children: [
+            TextField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                  hintText: 'Please enter your email address'),
             ),
-          ),
-          BlocListener<AuthBloc, AuthState>(
-            listener: (context, state) async {
-              if (state is AuthStateLoggedOut) {
-                if (state.exception is InvalidEmailAuthException) {
-                  await showErrorDialog(context, 'Invalid email!');
-                } else if (state.exception is UserNotFoundAuthException) {
-                  await showErrorDialog(context, 'User not found!');
-                } else if (state.exception is WrongPasswordAuthException) {
-                  await showErrorDialog(context, 'Wrong credentials!');
-                } else if (state.exception is AuthException) {
-                  await showErrorDialog(context, 'Authentification error!');
-                }
-              }
-            },
-            child: TextButton(
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              autocorrect: false,
+              enableSuggestions: false,
+              decoration: const InputDecoration(
+                hintText: 'Please enter your password',
+              ),
+            ),
+            TextButton(
               onPressed: () async {
                 final email = _emailController.text;
                 final password = _passwordController.text;
-                context.read<AuthBloc>().add(AuthEventLogin(
-                      email: email,
-                      password: password,
-                    ));
+                context.read<AuthBloc>().add(
+                      AuthEventLogin(
+                        email: email,
+                        password: password,
+                      ),
+                    );
               },
               child: const Text('Login'),
             ),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil(registerRoute, (route) => false);
-            },
-            child: const Text('Not registered yet? Register'),
-          )
-        ],
+            TextButton(
+              onPressed: () {
+                context.read<AuthBloc>().add(
+                      const AuthEventShouldRegister(),
+                    );
+              },
+              child: const Text('Not registered yet? Register'),
+            )
+          ],
+        ),
       ),
     );
   }
