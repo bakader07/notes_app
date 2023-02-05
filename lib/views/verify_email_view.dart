@@ -18,28 +18,40 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Verify Email')),
-      body: Column(children: [
-        const Text("We've sent you an email verification link, "
-            "please verify your email"),
-        const Text("if you haven't received the verification email yet, "
-            "press the button below:"),
-        TextButton(
-          onPressed: () {
-            context.read<AuthBloc>().add(
-                  const AuthEventSendEmailVerification(),
-                );
-          },
-          child: const Text('Send email verification'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text("We've sent you an email verification link, "
+                "please verify your email"),
+            const Text("if you haven't received the verification email yet, "
+                "press the button below:"),
+            Center(
+              child: Column(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      context.read<AuthBloc>().add(
+                            const AuthEventSendEmailVerification(),
+                          );
+                    },
+                    child: const Text('Send email verification'),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      context.read<AuthBloc>().add(
+                            const AuthEventLogout(),
+                          );
+                    },
+                    child: const Text('Go back'),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
-        TextButton(
-          onPressed: () async {
-            context.read<AuthBloc>().add(
-                  const AuthEventLogout(),
-                );
-          },
-          child: const Text('Go back'),
-        )
-      ]),
+      ),
     );
   }
 }
