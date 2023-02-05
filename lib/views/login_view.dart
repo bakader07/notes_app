@@ -7,7 +7,6 @@ import '../services/auth/bloc/auth_events.dart';
 import '../services/auth/bloc/auth_state.dart';
 import '../services/auth/bloc/auth_bloc.dart';
 import '../utilities/dialogs/error_dialog.dart';
-import '../utilities/dialogs/loading_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -19,7 +18,6 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
-  CloseDialog? _closeDialogHnadle;
 
   @override
   void initState() {
@@ -40,17 +38,6 @@ class _LoginViewState extends State<LoginView> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
         if (state is AuthStateLoggedOut) {
-          final closeDialog = _closeDialogHnadle;
-          if (!state.isLoading && closeDialog != null) {
-            closeDialog();
-            _closeDialogHnadle = null;
-          } else if (state.isLoading && closeDialog == null) {
-            _closeDialogHnadle = showLoadingsDialog(
-              context: context,
-              text: 'Loading...',
-            );
-          }
-
           if (state.exception is InvalidEmailAuthException) {
             await showErrorDialog(context, 'Invalid email!');
           } else if (state.exception is UserNotFoundAuthException) {

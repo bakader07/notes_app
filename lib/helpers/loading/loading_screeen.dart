@@ -47,6 +47,7 @@ class LoadingScreen {
                     const CircularProgressIndicator(),
                     const SizedBox(height: 20),
                     StreamBuilder(
+                      stream: _text.stream,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return Text(
@@ -72,7 +73,7 @@ class LoadingScreen {
     return LoadingScreenController(
       close: () {
         _text.close();
-        overlay.dispose();
+        overlay.remove();
         return true;
       },
       update: (text) {
