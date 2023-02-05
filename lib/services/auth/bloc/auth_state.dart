@@ -18,7 +18,7 @@ class AuthStateUninitialized extends AuthState {
 }
 
 class AuthStateRegistering extends AuthState {
-  final Exception exception;
+  final Exception? exception;
   const AuthStateRegistering({
     required this.exception,
     required super.isLoading,
@@ -47,4 +47,14 @@ class AuthStateLoggedOut extends AuthState with EquatableMixin {
 
   @override
   List<Object?> get props => [exception, isLoading];
+}
+
+class AuthStateForgotPassword extends AuthState {
+  final Exception? exception;
+  final bool hasSentEmail;
+  const AuthStateForgotPassword({
+    required this.exception,
+    required this.hasSentEmail,
+    required super.isLoading,
+  });
 }

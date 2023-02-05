@@ -9,6 +9,7 @@ import 'constants/routes.dart';
 import 'views/login_view.dart';
 import 'views/register_view.dart';
 import 'views/verify_email_view.dart';
+import 'views/forgot_password_view.dart';
 import 'views/notes/notes_view.dart';
 import 'views/notes/create_update_note_view.dart';
 import 'helpers/loading/loading_screeen.dart';
@@ -58,11 +59,15 @@ class HomePage extends StatelessWidget {
           return const RegisterView();
         } else if (state is AuthStateNeedsVerification) {
           return const VerifyEmailView();
+        } else if (state is AuthStateForgotPassword) {
+          return const ForgotPasswordView();
         } else if (state is AuthStateLoggedOut) {
           return const LoginView();
         } else {
           return const Scaffold(
-            body: CircularProgressIndicator(),
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
       },
