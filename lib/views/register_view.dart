@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/services/auth/bloc/auth_events.dart';
 
-import '../constants/routes.dart';
-import '../services/auth/auth_service.dart';
 import '../services/auth/auth_exceptions.dart';
 import '../services/auth/bloc/auth_state.dart';
 import '../services/auth/bloc/auth_bloc.dart';
