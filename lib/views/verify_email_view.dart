@@ -23,10 +23,9 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("We've sent you an email verification link, "
-                  "please verify your email"),
-              const Text("if you haven't received the verification email yet, "
-                  "press the button below:"),
+              Text(
+                context.loc.verify_email_view_prompt,
+              ),
               Center(
                 child: Column(
                   children: [
@@ -36,7 +35,9 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                               const AuthEventSendEmailVerification(),
                             );
                       },
-                      child: const Text('Send email verification'),
+                      child: Text(
+                        context.loc.verify_email_send_email_verification,
+                      ),
                     ),
                     TextButton(
                       onPressed: () async {
@@ -44,7 +45,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                               const AuthEventLogout(),
                             );
                       },
-                      child: const Text('Go back'),
+                      child: Text(context.loc.go_back),
                     ),
                   ],
                 ),
