@@ -7,6 +7,7 @@ import '../services/auth/auth_exceptions.dart';
 import '../services/auth/bloc/auth_state.dart';
 import '../services/auth/bloc/auth_bloc.dart';
 import '../utilities/dialogs/password_reset_email_sent_dialog.dart';
+import '../extensions/buildcontext/loc.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -56,7 +57,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Forgot Password'),
+          title: Text(context.loc.forgot_password),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

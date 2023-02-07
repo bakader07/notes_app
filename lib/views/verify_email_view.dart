@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../services/auth/bloc/auth_events.dart';
 import '../services/auth/bloc/auth_bloc.dart';
+import '../extensions/buildcontext/loc.dart';
 
 class VerifyEmailView extends StatefulWidget {
   const VerifyEmailView({super.key});
@@ -15,7 +16,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Verify Email')),
+      appBar: AppBar(title: Text(context.loc.verify_email)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

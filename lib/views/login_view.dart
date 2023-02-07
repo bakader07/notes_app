@@ -6,6 +6,7 @@ import '../services/auth/bloc/auth_events.dart';
 import '../services/auth/bloc/auth_state.dart';
 import '../services/auth/bloc/auth_bloc.dart';
 import '../utilities/dialogs/error_dialog.dart';
+import '../extensions/buildcontext/loc.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -52,7 +53,7 @@ class _LoginViewState extends State<LoginView> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text('Login')),
+        appBar: AppBar(title: Text(context.loc.my_language)),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(

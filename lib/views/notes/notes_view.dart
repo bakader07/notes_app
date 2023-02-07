@@ -10,6 +10,7 @@ import '../../services/auth/bloc/auth_events.dart';
 import '../../services/cloud/cloud_note.dart';
 import '../../services/cloud/firebase_cloud_storage.dart';
 import '../../utilities/dialogs/logout_dialog.dart';
+import '../../extensions/buildcontext/loc.dart';
 import '../notes/notes_list_view.dart';
 
 class NotesView extends StatefulWidget {
@@ -33,7 +34,7 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Notes'),
+        title: Text(context.loc.notes),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),

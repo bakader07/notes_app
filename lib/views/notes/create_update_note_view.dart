@@ -6,6 +6,7 @@ import '../../services/cloud/cloud_note.dart';
 import '../../services/cloud/firebase_cloud_storage.dart';
 import '../../utilities/generics/get_arguments.dart';
 import '../../utilities/dialogs/cannot_share_empty_note_dialog.dart';
+import '../../extensions/buildcontext/loc.dart';
 
 class CreateUpdateNoteView extends StatefulWidget {
   const CreateUpdateNoteView({super.key});
@@ -87,7 +88,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Note'),
+        title: Text(context.loc.new_note),
         actions: [
           IconButton(
             onPressed: (() async {

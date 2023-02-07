@@ -6,6 +6,7 @@ import '../services/auth/auth_exceptions.dart';
 import '../services/auth/bloc/auth_state.dart';
 import '../services/auth/bloc/auth_bloc.dart';
 import '../utilities/dialogs/error_dialog.dart';
+import '../extensions/buildcontext/loc.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -49,7 +50,7 @@ class _RegisterViewState extends State<RegisterView> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text('Register')),
+        appBar: AppBar(title: Text(context.loc.register)),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
