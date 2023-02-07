@@ -55,10 +55,10 @@ class _NotesViewState extends State<NotesView> {
                     }
                 }
               },
-              itemBuilder: (context) => const [
+              itemBuilder: (context) => [
                     PopupMenuItem<MenuAction>(
                       value: MenuAction.logout,
-                      child: Text('Log out'),
+                      child: Text(context.loc.logout),
                     )
                   ]),
         ],
@@ -84,7 +84,9 @@ class _NotesViewState extends State<NotesView> {
                   },
                 );
               } else {
-                return const CircularProgressIndicator();
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
             default:
               return const Center(
