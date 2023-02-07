@@ -39,13 +39,25 @@ class _RegisterViewState extends State<RegisterView> {
       listener: (context, state) async {
         if (state is AuthStateRegistering) {
           if (state.exception is WeakPasswordAuthException) {
-            await showErrorDialog(context, 'Weak password!');
+            await showErrorDialog(
+              context,
+              context.loc.register_error_weak_password,
+            );
           } else if (state.exception is EmailInUseAuthException) {
-            await showErrorDialog(context, 'Email already in use!');
+            await showErrorDialog(
+              context,
+              context.loc.register_error_email_already_in_use,
+            );
           } else if (state.exception is InvalidEmailAuthException) {
-            await showErrorDialog(context, 'Invalid email!');
+            await showErrorDialog(
+              context,
+              context.loc.register_error_invalid_email,
+            );
           } else if (state.exception is AuthException) {
-            await showErrorDialog(context, 'Failed to register!');
+            await showErrorDialog(
+              context,
+              context.loc.register_error_generic,
+            );
           }
         }
       },
@@ -57,8 +69,8 @@ class _RegisterViewState extends State<RegisterView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Please enter your email to receive the password reset link',
+                Text(
+                  context.loc.register_view_prompt,
                 ),
                 TextField(
                   controller: _emailController,
@@ -66,16 +78,17 @@ class _RegisterViewState extends State<RegisterView> {
                   enableSuggestions: false,
                   autocorrect: false,
                   autofocus: true,
-                  decoration: const InputDecoration(
-                      hintText: 'Please enter your email address'),
+                  decoration: InputDecoration(
+                    hintText: context.loc.email_text_field_placeholder,
+                  ),
                 ),
                 TextField(
                   controller: _passwordController,
                   obscureText: true,
                   autocorrect: false,
                   enableSuggestions: false,
-                  decoration: const InputDecoration(
-                    hintText: 'Please enter your password',
+                  decoration: InputDecoration(
+                    hintText: context.loc.password_text_field_placeholder,
                   ),
                 ),
                 Center(
@@ -92,7 +105,7 @@ class _RegisterViewState extends State<RegisterView> {
                                 ),
                               );
                         },
-                        child: const Text('Register'),
+                        child: Text(context.loc.register),
                       ),
                       TextButton(
                         onPressed: () {
@@ -100,7 +113,8 @@ class _RegisterViewState extends State<RegisterView> {
                                 const AuthEventLogout(),
                               );
                         },
-                        child: const Text('Already registered yet? Login'),
+                        child:
+                            Text(context.loc.register_view_already_registered),
                       ),
                     ],
                   ),
