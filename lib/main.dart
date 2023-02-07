@@ -14,11 +14,15 @@ import 'views/notes/notes_view.dart';
 import 'views/notes/create_update_note_view.dart';
 import 'helpers/loading/loading_screeen.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
     MaterialApp(
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
       title: 'Notes App',
       theme: ThemeData(
         primarySwatch: Colors.blue,

@@ -1,0 +1,10 @@
+{
+    "my_language": "English",
+    "login": "Log In",
+    "register": "Register",
+    "verify_email": "Verify Email",
+    "forgot_password": "Forgot Password",
+    "logout": "Log Out",
+    "notes": "Your Notes",
+    "new_note": "Note"
+}
