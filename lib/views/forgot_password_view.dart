@@ -42,14 +42,19 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           }
           if (state.exception != null) {
             if (state.exception is InvalidEmailAuthException) {
-              await showErrorDialog(context, 'Invalid email!');
+              await showErrorDialog(
+                context,
+                context.loc.register_error_invalid_email,
+              );
             } else if (state.exception is UserNotFoundAuthException) {
-              await showErrorDialog(context, 'User not found!');
+              await showErrorDialog(
+                context,
+                context.loc.login_error_cannot_find_user,
+              );
             } else {
               await showErrorDialog(
                 context,
-                'We could not reset the password. '
-                'Please make sure that you are a registered user',
+                context.loc.forgot_password_view_generic_error,
               );
             }
           }
@@ -65,17 +70,16 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'If you forgot your password, '
-                  'enter your email and we will send you the password reset link',
+                Text(
+                  context.loc.password_reset_dialog_prompt,
                 ),
                 TextField(
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
                   autofocus: true,
                   controller: _controller,
-                  decoration: const InputDecoration(
-                    hintText: 'Email adress',
+                  decoration: InputDecoration(
+                    hintText: context.loc.email_text_field_placeholder,
                   ),
                 ),
                 Center(
@@ -88,7 +92,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                 AuthEventForgotPassword(email: email),
                               );
                         },
-                        child: const Text('Send me password reset link'),
+                        child:
+                            Text(context.loc.forgot_password_view_send_me_link),
                       ),
                       TextButton(
                         onPressed: () {
@@ -96,7 +101,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                 const AuthEventLogout(),
                               );
                         },
-                        child: const Text('Go back to login page'),
+                        child: Text(
+                            context.loc.forgot_password_view_back_to_login),
                       ),
                     ],
                   ),
