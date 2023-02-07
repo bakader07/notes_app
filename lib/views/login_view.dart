@@ -53,7 +53,7 @@ class _LoginViewState extends State<LoginView> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: Text(context.loc.my_language)),
+        appBar: AppBar(title: Text(context.loc.login)),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
