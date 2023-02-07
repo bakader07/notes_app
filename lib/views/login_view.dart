@@ -60,25 +60,24 @@ class _LoginViewState extends State<LoginView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Please log in to interact with your notes',
-                ),
+                Text(context.loc.login_view_prompt),
                 TextField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   enableSuggestions: false,
                   autocorrect: false,
                   autofocus: true,
-                  decoration: const InputDecoration(
-                      hintText: 'Please enter your email address'),
+                  decoration: InputDecoration(
+                    hintText: context.loc.email_text_field_placeholder,
+                  ),
                 ),
                 TextField(
                   controller: _passwordController,
                   obscureText: true,
                   autocorrect: false,
                   enableSuggestions: false,
-                  decoration: const InputDecoration(
-                    hintText: 'Please enter your password',
+                  decoration: InputDecoration(
+                    hintText: context.loc.password_text_field_placeholder,
                   ),
                 ),
                 Center(
@@ -95,7 +94,7 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                               );
                         },
-                        child: const Text('Login'),
+                        child: Text(context.loc.login),
                       ),
                       TextButton(
                         onPressed: () {
@@ -103,7 +102,7 @@ class _LoginViewState extends State<LoginView> {
                                 const AuthEventShouldRegister(),
                               );
                         },
-                        child: const Text('Not registered yet? Register'),
+                        child: Text(context.loc.login_view_not_registered_yet),
                       ),
                       TextButton(
                         onPressed: () {
@@ -111,7 +110,7 @@ class _LoginViewState extends State<LoginView> {
                                 const AuthEventForgotPassword(),
                               );
                         },
-                        child: const Text('I forgot my password'),
+                        child: Text(context.loc.login_view_forgot_password),
                       )
                     ],
                   ),
